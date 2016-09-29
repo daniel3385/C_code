@@ -34,6 +34,8 @@ int main(int argc, char **argv) {
         while (i < length) {
             struct inotify_event *event =
                 (struct inotify_event *) &buffer[i];
+            //TODO files with wildcard, ex: *.txt
+            //TODO async i/o
             if (strcmp(event->name, "a.txt") != 0)
                 break;
             if (event->len) {
