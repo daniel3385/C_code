@@ -38,7 +38,7 @@ void startThread(FactorialData *data) {
 }
 
 void callbackFunction(FactorialData *factorialData) {
-    printf("Facotiral is %d\n", factorialData->result);
+    printf("Factorial is %d\n", factorialData->result);
 }
 
 int main(void) {
