@@ -10,33 +10,35 @@
 
 typedef struct _data {
     int time;
-    void (*callback)(void);
+    void *args;
+    void (*callback)(void *);
 } Data;
 
-void print(void){
+void print(void *args){
     printf("Chamou callback\n");
 }
 
 void *func(void *args) {
     Data *data = (Data *)args;
-    void  (*callback)(void);
+    void  (*callback)(void *);
     int time = data->time;
     printf("Dentro da thread.\n");;
     sleep(time);
     callback = data->callback;
-    callback();
+    callback(data->args);
     free(data);
     data=NULL;
     return NULL;
 }
 
-void timer(void (*callback)(void), void *args, int time) {
+void timer(void (*callback)(void *), void *args, int time) {
     pthread_t thread_id;
     int thread;
 
     Data *data = malloc(sizeof(Data));
     data->time = time;
     data->callback = callback;
+    data->args = args;
 
     thread = pthread_create(&thread_id, NULL, func, (void *) data);
     if(thread != 0) {
