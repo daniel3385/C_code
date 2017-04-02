@@ -47,6 +47,7 @@ void timer(void (*callback)(void *), void *args, int time) {
     if(thread != 0) {
         printf("Erro ao chamar thread.\n");
     }
+    pthread_detach(pthread_self());
     /*pthread_join(thread_id , NULL );*/
 }
 
