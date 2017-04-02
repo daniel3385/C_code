@@ -15,7 +15,10 @@ typedef struct _data {
 } Data;
 
 void print(void *args){
-    printf("Chamou callback\n");
+    if(args == NULL)
+        printf("Chamou callback\n");
+    else
+        printf("Chamou callback %d\n",*(int *) args);
 }
 
 void *func(void *args) {
@@ -44,12 +47,15 @@ void timer(void (*callback)(void *), void *args, int time) {
     if(thread != 0) {
         printf("Erro ao chamar thread.\n");
     }
-    pthread_join(thread_id , NULL );
+    /*pthread_join(thread_id , NULL );*/
 }
 
 int main(void) {
+    int x = 5;
 
     timer(print, NULL, 3);
+    timer(print, &x, 4);
+    sleep(6);
 
     printf("Fim do main\n");
     return 0;
