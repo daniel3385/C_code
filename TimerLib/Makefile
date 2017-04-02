@@ -1,12 +1,25 @@
 CC=gcc
 
-FILES=timer.c
-OUT_EXE= timer 
+TIMER=timer.c
+TIMERTEST=timerExampleUse.c
+
+OBJTIMER=timer.o
+OBJTEST=timerExampleUse.o
+
+OUT_EXE=test 
 
 LDFLAGS=-lpthread
 CFLAGS=-ansi -pedantic -Wall -Werror -g 
 
 
-build: $(FILES)
-	$(CC) -o $(OUT_EXE) $(FILES) $(LDFLAGS) $(CFLAGS)
+build: $(OBJTEST) $(OBJTIMER)
+	$(CC) -o $(OUT_EXE) $(OBJTEST) $(OBJTIMER) $(LDFLAGS)	
 
+$(OBJTEST): $(TIMERTEST)
+	$(CC) -c $(TIMERTEST) 
+
+$(OBJTIMER): $(TIMER)
+	$(CC) -c $(TIMER) $(LDFLAGS) $(CFLAGS)
+
+clean:
+	rm -f *.o $(OUT_EXE) 

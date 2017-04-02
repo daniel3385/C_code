@@ -14,13 +14,6 @@ typedef struct _data {
     void (*callback)(void *);
 } Data;
 
-void print(void *args){
-    if(args == NULL)
-        printf("Chamou callback\n");
-    else
-        printf("Chamou callback %d\n",*(int *) args);
-}
-
 void *func(void *args) {
     Data *data = (Data *)args;
     void  (*callback)(void *);
@@ -48,17 +41,4 @@ void timer(void (*callback)(void *), void *args, int time) {
         printf("Erro ao chamar thread.\n");
     }
     pthread_detach(pthread_self());
-    /*pthread_join(thread_id , NULL );*/
 }
-
-int main(void) {
-    int x = 5;
-
-    timer(print, NULL, 3);
-    timer(print, &x, 4);
-    sleep(6);
-
-    printf("Fim do main\n");
-    return 0;
-}
-
